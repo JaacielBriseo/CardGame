@@ -4,6 +4,7 @@ import btnReset from "../composables/resetbtn";
 import "../assets/styles.css";
 import Loser from "./Loser.vue";
 import Winner from "./Winner.vue";
+import "../assets/backg.css"
 
 const perdiste = ref("false");
 const winner = ref("false");
@@ -97,13 +98,11 @@ else if(cardValues.length <= 2){
 suit1.value=selectedCards[0].suit
 suit2.value=selectedCards[1].suit
 }
-
   carta1.value = cardValues[0];
   carta2.value = cardValues[1];
   carta3.value = cardValues[2];
   carta4.value = cardValues[3];
   carta5.value = cardValues[4];
-
 
   if (detectAce.length != 0) {
     aces.value = aces.value - detectAce.length;
