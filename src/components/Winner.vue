@@ -32,7 +32,7 @@ import ConfettiExplosion from "vue-confetti-explosion";
      -webkit-box-shadow: rgba(0,0,0,0.3) 0 0 0;
      -moz-box-shadow: rgba(0,0,0,0.3) 0 0 0;
      box-shadow: rgba(0,0,0,0.3) 0 0 0;
-     font-family: 'Helvetica Neue',Helvetica, sans-serif;
+     font-family: 'Roboto Slab', serif;
 }
 
 .ribbon h1 {

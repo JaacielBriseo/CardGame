@@ -5,7 +5,6 @@ import "../assets/index.css";
 import Loser from "./Loser.vue";
 import Winner from "./Winner.vue";
 
-
 const perdiste = ref("false");
 const winner = ref("false");
 const btnAppear = ref(true);
@@ -38,17 +37,17 @@ const cardsLeft = ref(cards.length);
 //Start the game
 
 const deckBuilder = () => {
-    for (let s = 0; s < suits.length; s++) {
-      for (let v = 0; v < values.length; v++) {
-        const value = values[v];
-        const suit = suits[s];
-        cards.push({ value, suit });
-        cardsLeft.value = cards.length;
-      }
+  for (let s = 0; s < suits.length; s++) {
+    for (let v = 0; v < values.length; v++) {
+      const value = values[v];
+      const suit = suits[s];
+      cards.push({ value, suit });
+      cardsLeft.value = cards.length;
     }
-    console.log(cards);
-    startButton.value = "";
-  };
+  }
+  // console.log(cards);
+  startButton.value = "";
+};
 // Get 5 random cards from the deck
 const dealCards = () => {
   let selectedCards = [];
@@ -60,7 +59,7 @@ const dealCards = () => {
       selectedCards.push(randomValue);
       cards.splice(randomCards, 1);
       cardsLeft.value = cards.length;
-      console.log(cards.length);
+      //  console.log(cards.length);
     }
   } else if (cards.length <= 2) {
     for (let index = 0; index < 2; index++) {
@@ -69,12 +68,12 @@ const dealCards = () => {
       selectedCards.push(randomValue);
       cards.splice(randomCards, 1);
       cardsLeft.value = cards.length;
-      console.log(cards.length);
+      // console.log(cards.length);
     }
   }
 
-  console.log(selectedCards);
-  console.log(cards);
+  //console.log(selectedCards);
+  //console.log(cards);
 
   const detectAce = selectedCards.filter((element) => element.value === "Ace");
 
@@ -103,29 +102,25 @@ const dealCards = () => {
 
 <template>
   <div id="container" v-if="startButton">
-    <button id="btnDeal" @click="deckBuilder()">{{ startButton }}</button>
+    <button id="btnStart" @click="deckBuilder()">{{ startButton }}</button>
   </div>
-
   <div v-if="!startButton" id="container">
     <Winner v-if="!winner" />
     <div id="blackbox">
       <h3>Cards left:</h3>
-
       <h4>{{ cardsLeft }}</h4>
       <p>Aces left:{{ aces }}</p>
     </div>
-
     <div id="containerCartas">
       <div id="cards-container">
         <div>{{ carta1 }}</div>
         <div>{{ carta2 }}</div>
-        <div>{{ carta3 }}</div>
-        <div>{{ carta4 }}</div>
-        <div>{{ carta5 }}</div>
+        <div v-if="cardsLeft >= 2">{{ carta3 }}</div>
+        <div v-if="cardsLeft >= 2">{{ carta4 }}</div>
+        <div v-if="cardsLeft >= 2">{{ carta5 }}</div>
       </div>
       <Loser v-if="!perdiste" />
     </div>
-
     <button id="btnDeal" v-if="perdiste && winner" @click="dealCards()">
       DEAL
     </button>
@@ -133,7 +128,6 @@ const dealCards = () => {
     <button id="btnReset" v-if="perdiste && winner" @click="btnReset()">
       Reset
     </button>
-
     <button id="btnReset" v-if="!perdiste || !winner" @click="btnReset()">
       Play again
     </button>
@@ -156,15 +150,29 @@ const dealCards = () => {
   border-style: solid;
   border-color: yellow;
   border-width: 1px;
+  font-family: 'Lora', serif;
 }
 #btnDeal {
   margin: 20px;
   border-radius: 25px;
-  padding: 20px;
-  background-color: yellow;
+  padding: 10px;
+  background-color: rgb(206, 206, 2);
   color: black;
   font-size: 40px;
-  width: 300px;
+  width: 250px;
+  height: 75px;
+  font-family: 'Alfa Slab One', cursive;
+}
+#btnStart {
+  margin: 20px;
+  border-radius: 25px;
+  padding: 10px;
+  background-color: rgb(206, 206, 2);
+  color: black;
+  font-size: 35px;
+  width: 250px;
+  height: 75px;
+  font-family: 'Alfa Slab One', cursive;
 }
 #btnReset {
   font-size: 20px;
@@ -176,7 +184,8 @@ const dealCards = () => {
   width: 150px;
   border-style: solid;
   border-color: yellow;
-  border-width: 1px;
+  border-width: 2px;
+  font-family: 'Montserrat', sans-serif;
 }
 #cards-container {
   display: flex;
@@ -189,12 +198,14 @@ const dealCards = () => {
   background-color: rgba(255, 255, 255, 0.8);
   text-align: center;
   padding: 20px 0;
-  font-size: 50px;
+  font-size: 48px;
   border-radius: 15px;
   margin: 10px;
   padding: 10px;
   width: 125px;
   height: 200px;
+  color: red;
+font-family: 'Noto Sans', sans-serif;
 }
 </style>
 

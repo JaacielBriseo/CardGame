@@ -1,6 +1,6 @@
 <script setup>
 import btnReset from "../composables/resetbtn";
-
+import "../assets/fonts.css";
 </script>
 <template>
   <div>
@@ -15,5 +15,6 @@ import btnReset from "../composables/resetbtn";
   color: white;
   font-size: 30px;
   text-align: center;
+  font-family: 'Spline Sans Mono', monospace;
 }
 </style>
