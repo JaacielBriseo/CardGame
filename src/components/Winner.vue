@@ -19,7 +19,7 @@ import ConfettiExplosion from "vue-confetti-explosion";
 .ribbon {
      width: 560px;
      position: absolute;
-    margin-top: -325px;
+     margin-top: -325px;
      text-align: center;
      font-size: 25px !important;
      background: #d47429;

@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import btnReset from "../composables/resetbtn";
-import "../assets/index.css";
+import "../assets/styles.css";
 import Loser from "./Loser.vue";
 import Winner from "./Winner.vue";
 
@@ -105,22 +105,24 @@ const dealCards = () => {
     <button id="btnStart" @click="deckBuilder()">{{ startButton }}</button>
   </div>
   <div v-if="!startButton" id="container">
-    <Winner v-if="!winner" />
+          <Winner v-if="!winner" />
     <div id="blackbox">
+    
       <h3>Cards left:</h3>
+
       <h4>{{ cardsLeft }}</h4>
       <p>Aces left:{{ aces }}</p>
     </div>
-    <div id="containerCartas">
+
       <div id="cards-container">
-        <div>{{ carta1 }}</div>
-        <div>{{ carta2 }}</div>
-        <div v-if="cardsLeft >= 2">{{ carta3 }}</div>
-        <div v-if="cardsLeft >= 2">{{ carta4 }}</div>
-        <div v-if="cardsLeft >= 2">{{ carta5 }}</div>
+        <div >{{ carta1 }}</div>
+        <div >{{ carta2 }}</div>
+        <div  v-if="cardsLeft >= 2">{{ carta3 }}</div>
+        <div  v-if="cardsLeft >= 2">{{ carta4 }}</div>
+        <div  v-if="cardsLeft >= 2">{{ carta5 }}</div>
       </div>
       <Loser v-if="!perdiste" />
-    </div>
+
     <button id="btnDeal" v-if="perdiste && winner" @click="dealCards()">
       DEAL
     </button>
@@ -133,80 +135,3 @@ const dealCards = () => {
     </button>
   </div>
 </template>
-
-<style>
-#container {
-  display: grid;
-  place-items: center;
-}
-#blackbox {
-  margin: 20px;
-  font-size: 25px;
-  text-align: center;
-  background-color: black;
-  color: white;
-  width: 230px;
-  height: 2;
-  border-style: solid;
-  border-color: yellow;
-  border-width: 1px;
-  font-family: 'Lora', serif;
-}
-#btnDeal {
-  margin: 20px;
-  border-radius: 25px;
-  padding: 10px;
-  background-color: rgb(206, 206, 2);
-  color: black;
-  font-size: 40px;
-  width: 250px;
-  height: 75px;
-  font-family: 'Alfa Slab One', cursive;
-}
-#btnStart {
-  margin: 20px;
-  border-radius: 25px;
-  padding: 10px;
-  background-color: rgb(206, 206, 2);
-  color: black;
-  font-size: 35px;
-  width: 250px;
-  height: 75px;
-  font-family: 'Alfa Slab One', cursive;
-}
-#btnReset {
-  font-size: 20px;
-  border-radius: 25px;
-  background-color: transparent;
-  color: yellow;
-  padding: 10px;
-  margin: 10px;
-  width: 150px;
-  border-style: solid;
-  border-color: yellow;
-  border-width: 2px;
-  font-family: 'Montserrat', sans-serif;
-}
-#cards-container {
-  display: flex;
-  align-content: space-between;
-  grid-template-columns: 100px 100px 100px;
-  gap: 45px;
-  padding: 45px;
-}
-#cards-container > div {
-  background-color: rgba(255, 255, 255, 0.8);
-  text-align: center;
-  padding: 20px 0;
-  font-size: 48px;
-  border-radius: 15px;
-  margin: 10px;
-  padding: 10px;
-  width: 125px;
-  height: 200px;
-  color: red;
-font-family: 'Noto Sans', sans-serif;
-}
-</style>
-
-

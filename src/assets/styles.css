@@ -1,0 +1,92 @@
+@media only screen and (max-width: 415px) {
+    #container {
+        display: flex;
+        justify-content: center;
+
+    }
+
+    #cards-container {
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        width: 438px;
+        height:auto;
+
+    }
+}
+
+#container {
+    display: grid;
+    place-items: center;
+}
+
+#blackbox {
+    margin: 20px;
+    font-size: 25px;
+    text-align: center;
+    background-color: black;
+    color: white;
+    width: 230px;
+    height: 2;
+    border-style: solid;
+    border-color: yellow;
+    border-width: 1px;
+    font-family: 'Lora', serif;
+}
+
+#btnDeal {
+    margin: 20px;
+    border-radius: 25px;
+    padding: 10px;
+    background-color: rgb(206, 206, 2);
+    color: black;
+    font-size: 40px;
+    width: 250px;
+    height: 75px;
+    font-family: 'Alfa Slab One', cursive;
+}
+
+#btnStart {
+    margin: 20px;
+    border-radius: 25px;
+    padding: 10px;
+    background-color: rgb(206, 206, 2);
+    color: black;
+    font-size: 35px;
+    width: 250px;
+    height: 75px;
+    font-family: 'Alfa Slab One', cursive;
+}
+
+#btnReset {
+    font-size: 20px;
+    border-radius: 25px;
+    background-color: transparent;
+    color: yellow;
+    padding: 10px;
+    margin: 10px;
+    width: 150px;
+    border-style: solid;
+    border-color: yellow;
+    border-width: 2px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+#cards-container {
+    display: flex;
+    align-content: space-evenly;
+    grid-template-columns: 100px 100px 100px;
+
+}
+
+#cards-container>div {
+    background-color: rgba(255, 255, 255, 0.8);
+    font-size: 48px;
+    text-align: center;
+    border-radius: 15px;
+    margin: 10px;
+    padding: 10px;
+    width: 105px;
+    height: 175px;
+    color: red;
+    font-family: 'Noto Sans', sans-serif;
+}
