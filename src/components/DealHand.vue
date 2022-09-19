@@ -1,25 +1,17 @@
 <script setup>
-import { ref } from "vue";
+import { ref, h } from "vue";
 import btnReset from "../composables/resetbtn";
+import "../assets/index.css";
 import "../assets/styles.css";
 import Loser from "./Loser.vue";
 import Winner from "./Winner.vue";
-import "../assets/backg.css"
+import "../assets/backg.css";
 
 const perdiste = ref("false");
 const winner = ref("false");
 const btnAppear = ref(true);
 const startButton = ref("Start Game");
-const carta1 = ref("");
-const carta2 = ref("");
-const carta3 = ref("");
-const carta4 = ref("");
-const carta5 = ref("");
-const suit1 = ref("")
-const suit2 = ref("")
-const suit3 = ref("")
-const suit4 = ref("")
-const suit5 = ref("")
+const card = ref("");
 const aces = ref(4);
 const values = [
   "Ace",
@@ -39,9 +31,12 @@ const values = [
 const suits = ["♥", "♦", "♠", "♣"];
 const cards = [];
 const cardsLeft = ref(cards.length);
-
+let cardValues = [];
 //Start the game
-
+const deckConstructor = values.forEach(element =>{
+  element + suits
+})
+console.log(deckConstructor)
 const deckBuilder = () => {
   for (let s = 0; s < suits.length; s++) {
     for (let v = 0; v < values.length; v++) {
@@ -51,7 +46,6 @@ const deckBuilder = () => {
       cardsLeft.value = cards.length;
     }
   }
-  // console.log(cards);
   startButton.value = "";
 };
 // Get 5 random cards from the deck
@@ -65,7 +59,6 @@ const dealCards = () => {
       selectedCards.push(randomValue);
       cards.splice(randomCards, 1);
       cardsLeft.value = cards.length;
-      
     }
   } else if (cards.length <= 2) {
     for (let index = 0; index < 2; index++) {
@@ -74,80 +67,79 @@ const dealCards = () => {
       selectedCards.push(randomValue);
       cards.splice(randomCards, 1);
       cardsLeft.value = cards.length;
-
     }
   }
-
-
-  //console.log(cards);
-
-  const detectAce = selectedCards.filter((element) => element.value === "Ace");
-
-  const cardValues = selectedCards.map((element) => {
+  let fullhand = selectedCards.map((element) => {
     return element.value + element.suit;
   });
+  fullhand.forEach((element) => cardValues.push(element));
+  if(cardValues.length > 5){
+    cardValues.splice(0,5)
+  }
+  const detectAce = selectedCards.filter((element) => element.value === "Ace");
+  if(detectAce.length != 0){aces.value = aces.value - detectAce.length;}
+  if(aces.value === 0 && cardsLeft.value >= 2){return (perdiste.value = "");}
+  if(aces.value === 0 && cardsLeft.value === 0){return (winner.value = "");}
 
-console.log(cardValues)
-if(cardValues.length === 5){
-suit1.value=selectedCards[0].suit
-suit2.value=selectedCards[1].suit
-suit3.value=selectedCards[2].suit
-suit4.value=selectedCards[3].suit
-suit5.value=selectedCards[4].suit}
-else if(cardValues.length <= 2){
-suit1.value=selectedCards[0].suit
-suit2.value=selectedCards[1].suit
-}
-  carta1.value = cardValues[0];
-  carta2.value = cardValues[1];
-  carta3.value = cardValues[2];
-  carta4.value = cardValues[3];
-  carta5.value = cardValues[4];
-
-  if (detectAce.length != 0) {
-    aces.value = aces.value - detectAce.length;
-  }
-  //console.log(detectAce);
-  if (aces.value === 0 && cardsLeft.value >= 2) {
-    return (perdiste.value = "");
-  }
-  if (aces.value === 0 && cardsLeft.value === 0) {
-    return (winner.value = "");
-  }
 };
-</script> 
+</script>
 
 <template>
-  <div id="container" v-if="startButton">
-    <button id="btnStart" @click="deckBuilder()">{{ startButton }}</button>
+  <div class="grid place-items-center" id="container" v-if="startButton">
+    <button
+      class="m-5 p-2.5 rounded-3xl bg-yellow-400 text-black text-4xl w-64 h-16"
+      id="btnStart"
+      @click="deckBuilder()"
+    >
+      {{ startButton }}
+    </button>
   </div>
-  <div v-if="!startButton" id="container">
-          <Winner v-if="!winner" />
-    <div id="blackbox">
-    
+  <div class="grid place-items-center" v-if="!startButton" id="container">
+    <Winner v-if="!winner" />
+    <div
+      class="m-5 text-2xl text-center bg-black text-white w-56 h-auto border divide-solid font-lora"
+      id="blackbox"
+    >
       <h3>Cards left:</h3>
 
       <h4>{{ cardsLeft }}</h4>
       <p>Aces left:{{ aces }}</p>
     </div>
 
-      <div id="cards-container">
-        <div >{{ carta1 }} <br> <a id="suitText"> {{suit1}} </a></div>
-        <div >{{ carta2 }} <br><sub id="suitText"> {{suit2}} </sub></div>
-        <div  v-if="cardsLeft >= 2">{{ carta3 }} <br> <sub id="suitText"> {{suit3}} </sub></div>
-        <div  v-if="cardsLeft >= 2">{{ carta4 }} <br> <sub id="suitText"> {{suit4}} </sub></div>
-        <div  v-if="cardsLeft >= 2">{{ carta5 }} <br> <sub id="suitText"> {{suit5}} </sub></div>
+    <div class="flex content-evenly" id="cards-container">
+      <div
+        class="bg-gray-200 text-4xl text-center rounded-3xl m-2.5 w-28 h-44 text-red-600"
+        v-for="(element, index) in cardValues"
+        :key="index"
+      >
+        {{ element }} <br />
       </div>
-      <Loser v-if="!perdiste" />
+    </div>
+    <Loser v-if="!perdiste" />
 
-    <button id="btnDeal" v-if="perdiste && winner" @click="dealCards()">
+    <button
+      class="m-5 rounded-3xl p-2.5 bg-yellow-400 w-64 h-20 text-4xl"
+      id="btnDeal"
+      v-if="perdiste && winner"
+      @click="dealCards()"
+    >
       DEAL
     </button>
     <br />
-    <button id="btnReset" v-if="perdiste && winner" @click="btnReset()">
+    <button
+      class="text-xl rounded-3xl text-yellow-400 p-2.5 m-2.5 w-36 border-solid border-yellow-400 border-2 bg-transparent"
+      id="btnReset"
+      v-if="perdiste && winner"
+      @click="btnReset()"
+    >
       Reset
     </button>
-    <button id="btnReset" v-if="!perdiste || !winner" @click="btnReset()">
+    <button
+      class="text-xl rounded-3xl text-yellow-400 p-2.5 m-2.5 w-36 border-solid border-yellow-400 border-2 bg-transparent"
+      id="btnReset"
+      v-if="!perdiste || !winner"
+      @click="btnReset()"
+    >
       Play again
     </button>
   </div>

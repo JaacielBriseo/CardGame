@@ -1,13 +1,9 @@
 <script setup>
-import DealHand from './components/DealHand.vue'
-
+import DealHand from "./components/DealHand.vue";
 </script>
 
 <template>
-
-<DealHand />
-
+  <DealHand />
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
